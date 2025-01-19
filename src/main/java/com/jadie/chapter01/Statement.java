@@ -8,7 +8,7 @@ public class Statement {
         return renderPlainText(data);
     }
 
-    private String renderPlainText(StatementData data) throws Exception {
+    private String renderPlainText(StatementData data) {
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(data.customer()));
 
         for (Performance perf : data.performances()) {

@@ -20,7 +20,7 @@ public record StatementData(
         return plays.getPlay(perf.playID());
     }
 
-    public int amountFor(Performance aPerformance) throws Exception {
+    public int amountFor(Performance aPerformance) {
         int result = 0;
         switch (playFor(plays, aPerformance).type()) {
             case "tragedy" -> {
@@ -36,17 +36,15 @@ public record StatementData(
                 }
                 result += 300 * aPerformance.audience();
             }
-            default -> throw new Exception("알 수 없는 장르: %s".formatted(playFor(plays, aPerformance).type()));
+            default -> throw new RuntimeException("알 수 없는 장르: %s".formatted(playFor(plays, aPerformance).type()));
         }
         return result;
     }
 
-    public int totalAmount() throws Exception {
-        int result = 0;
-        for (Performance perf : performances) {
-            result += amountFor(perf);
-        }
-        return result;
+    public int totalAmount() {
+        return performances.stream()
+                .mapToInt(this::amountFor)
+                .sum();
     }
 
     public int totalVolumeCredits() {
