@@ -15,19 +15,19 @@ public class Statement {
     }
 
     private int totalAmount(Invoice invoice, Plays plays) throws Exception {
-        int totalAmount = 0;
+        int result = 0;
         for (Performance perf : invoice.performances()) {
-            totalAmount += amountFor(perf, plays);
+            result += amountFor(perf, plays);
         }
-        return totalAmount;
+        return result;
     }
 
     private int totalVolumeCredits(Invoice invoice, Plays plays) {
-        int volumeCredits = 0;
+        int result = 0;
         for (Performance perf : invoice.performances()) {
-            volumeCredits += volumeCreditsFor(plays, perf);
+            result += volumeCreditsFor(plays, perf);
         }
-        return volumeCredits;
+        return result;
     }
 
     private int volumeCreditsFor(Plays plays, Performance perf) {
