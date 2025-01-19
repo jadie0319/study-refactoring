@@ -10,16 +10,22 @@ public class Statement {
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
 
         for (Performance perf : invoice.performances()) {
-            volumeCredits += Math.max(perf.audience() - 30, 0);
-            if ("comedy".equals(playFor(plays, perf).type())) {
-                volumeCredits += Math.floor(perf.audience() / 5);
-            }
+            volumeCredits += volumeCreditsFor(plays, perf);
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), toDouble(amountFor(perf, plays)), perf.audience()));
             totalAmount += amountFor(perf, plays);
         }
         result.append("총액: $%.2f\n".formatted(toDouble(totalAmount)));
         result.append("적립 포인트: %d점".formatted(volumeCredits));
         return result.toString();
+    }
+
+    private int volumeCreditsFor(Plays plays, Performance perf) {
+        int result = 0;
+        result += Math.max(perf.audience() - 30, 0);
+        if ("comedy".equals(playFor(plays, perf).type())) {
+            result += Math.floor(perf.audience() / 5);
+        }
+        return result;
     }
 
     private Play playFor(Plays plays, Performance perf) {
