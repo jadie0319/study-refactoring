@@ -38,12 +38,7 @@ public record StatementData(
     }
 
     private int volumeCreditsFor(Performance perf) {
-        int result = 0;
-        result += Math.max(perf.audience() - 30, 0);
-        if ("comedy".equals(playFor(plays, perf).type())) {
-            result += Math.floor(perf.audience() / 5);
-        }
-        return result;
+        return new PerformanceCalculator(perf, playFor(plays, perf)).volumeCredits();
     }
 
     public String playName(Performance perf) {
