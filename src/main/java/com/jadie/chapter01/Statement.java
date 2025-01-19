@@ -9,14 +9,19 @@ public class Statement {
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
         }
 
-        int totalAmount = 0;
-        for (Performance perf : invoice.performances()) {
-            totalAmount += amountFor(perf, plays);
-        }
+        int totalAmount = totalAmount(invoice, plays);
 
         result.append("총액: $%.2f\n".formatted(usd(totalAmount)));
         result.append("적립 포인트: %d점".formatted(totalVolumeCredits(invoice, plays)));
         return result.toString();
+    }
+
+    private int totalAmount(Invoice invoice, Plays plays) throws Exception {
+        int totalAmount = 0;
+        for (Performance perf : invoice.performances()) {
+            totalAmount += amountFor(perf, plays);
+        }
+        return totalAmount;
     }
 
     private int totalVolumeCredits(Invoice invoice, Plays plays) {
