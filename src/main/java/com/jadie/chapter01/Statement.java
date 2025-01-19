@@ -3,6 +3,11 @@ package com.jadie.chapter01;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
+        StatementData data = new StatementData();
+        return renderPlainText(data, invoice, plays);
+    }
+
+    private String renderPlainText(StatementData data, Invoice invoice, Plays plays) throws Exception {
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
 
         for (Performance perf : invoice.performances()) {
