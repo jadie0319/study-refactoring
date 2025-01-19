@@ -13,22 +13,7 @@ public class Statement {
             Play play = plays.getPlay(perf.playID());
             int thisAmount = 0;
 
-            switch (play.type()) {
-                case "tragedy" -> {
-                    thisAmount = 40000;
-                    if (perf.audience() > 30) {
-                        thisAmount += 1000 * (perf.audience() - 30);
-                    }
-                }
-                case "comedy" -> {
-                    thisAmount = 30000;
-                    if (perf.audience() > 20) {
-                        thisAmount += 10000 + 500 * (perf.audience() - 20);
-                    }
-                    thisAmount += 300 * perf.audience();
-                }
-                default -> throw new Exception("알 수 없는 장르: %s".formatted(play.type()));
-            }
+            thisAmount = amountFor(perf, play);
 
             volumeCredits += Math.max(perf.audience() - 30, 0);
             if ("comedy".equals(play.type())) {
@@ -40,6 +25,27 @@ public class Statement {
         result.append("총액: $%.2f\n".formatted(toDouble(totalAmount)));
         result.append("적립 포인트: %d점".formatted(volumeCredits));
         return result.toString();
+    }
+
+    private static int amountFor(Performance perf, Play play) throws Exception {
+        int thisAmount = 0;
+        switch (play.type()) {
+            case "tragedy" -> {
+                thisAmount = 40000;
+                if (perf.audience() > 30) {
+                    thisAmount += 1000 * (perf.audience() - 30);
+                }
+            }
+            case "comedy" -> {
+                thisAmount = 30000;
+                if (perf.audience() > 20) {
+                    thisAmount += 10000 + 500 * (perf.audience() - 20);
+                }
+                thisAmount += 300 * perf.audience();
+            }
+            default -> throw new Exception("알 수 없는 장르: %s".formatted(play.type()));
+        }
+        return thisAmount;
     }
 
     private double toDouble(int amount) {
