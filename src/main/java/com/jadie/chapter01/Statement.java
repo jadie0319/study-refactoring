@@ -8,6 +8,9 @@ public class Statement {
 
         for (Performance perf : invoice.performances()) {
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
+        }
+
+        for (Performance perf : invoice.performances()) {
             totalAmount += amountFor(perf, plays);
         }
 
