@@ -1,42 +1,17 @@
 package com.jadie.chapter01;
 
-import chapter01.StatementTest;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class PerformanceCalculatorTest {
-
-    private static Plays plays;
-    private static List<Invoice> invoices;
-
-    @BeforeAll
-    static void setUp() throws IOException {
-        ClassLoader classLoader = StatementTest.class.getClassLoader();
-        File playsFile = new File(Objects.requireNonNull(classLoader.getResource("plays.json")).getFile());
-        File invoicesFile = new File(Objects.requireNonNull(classLoader.getResource("invoices.json")).getFile());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        plays = new Plays(objectMapper.readValue(playsFile, new TypeReference<Map<String, Play>>() {}));
-        invoices = objectMapper.readValue(invoicesFile, new TypeReference<List<Invoice>>() {});
-    }
 
     @DisplayName("hamlet volumeCredits 테스트")
     @Test
     void hamletVolumeCredits() {
-        Performance performance = new Performance("hamlet", 55);
-        Play play = new Play("Hamlet", "tragedy");
+        Performance performance = createPerformance("hamlet", 55);
+        Play play = createPlay("Hamlet", "tragedy");
         PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.volumeCredits();
@@ -47,8 +22,8 @@ class PerformanceCalculatorTest {
     @DisplayName("asYouLikeIt volumeCredits 테스트")
     @Test
     void asYouLikeItVolumeCredits() {
-        Performance performance = new Performance("as-like", 35);
-        Play play = new Play("As You Like It", "comedy");
+        Performance performance = createPerformance("as-like", 35);
+        Play play = createPlay("As You Like It", "comedy");
         PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.volumeCredits();
@@ -59,8 +34,8 @@ class PerformanceCalculatorTest {
     @DisplayName("othello volumeCredits 테스트")
     @Test
     void othelloVolumeCredits() {
-        Performance performance = new Performance("othello", 40);
-        Play play = new Play("Othello", "tragedy");
+        Performance performance = createPerformance("othello", 40);
+        Play play = createPlay("Othello", "tragedy");
         PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.volumeCredits();
@@ -71,8 +46,8 @@ class PerformanceCalculatorTest {
     @DisplayName("hamlet amount 테스트")
     @Test
     void hamletAmount() {
-        Performance performance = new Performance("hamlet", 55);
-        Play play = new Play("Hamlet", "tragedy");
+        Performance performance = createPerformance("hamlet", 55);
+        Play play = createPlay("Hamlet", "tragedy");
         PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.amount();
@@ -83,8 +58,8 @@ class PerformanceCalculatorTest {
     @DisplayName("asYouLikeIt amount 테스트")
     @Test
     void asYouLikeItAmount() {
-        Performance performance = new Performance("as-like", 35);
-        Play play = new Play("As You Like It", "comedy");
+        Performance performance = createPerformance("as-like", 35);
+        Play play = createPlay("As You Like It", "comedy");
         PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.amount();
@@ -95,8 +70,8 @@ class PerformanceCalculatorTest {
     @DisplayName("othello amount 테스트")
     @Test
     void othelloAmount() {
-        Performance performance = new Performance("othello", 40);
-        Play play = new Play("Othello", "tragedy");
+        Performance performance = createPerformance("othello", 40);
+        Play play = createPlay("Othello", "tragedy");
         PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.amount();
@@ -104,4 +79,11 @@ class PerformanceCalculatorTest {
         assertThat(result).isEqualTo(50000);
     }
 
+    private Play createPlay(String name, String type) {
+        return new Play(name, type);
+    }
+
+    private static Performance createPerformance(String playID, int audience) {
+        return new Performance(playID, audience);
+    }
 }
