@@ -35,7 +35,7 @@ class PerformanceCalculatorTest {
     void hamletAmount() {
         Performance performance = new Performance("hamlet", 55);
         Play play = new Play("Hamlet", "tragedy");
-        PerformanceCalculator performanceCalculator = new PerformanceCalculator(performance, play);
+        PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.amount();
 
@@ -46,7 +46,7 @@ class PerformanceCalculatorTest {
     void asYouLikeItAmount() {
         Performance performance = new Performance("as-like", 35);
         Play play = new Play("As You Like It", "comedy");
-        PerformanceCalculator performanceCalculator = new PerformanceCalculator(performance, play);
+        PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.amount();
 
@@ -57,7 +57,7 @@ class PerformanceCalculatorTest {
     void othelloAmount() {
         Performance performance = new Performance("othello", 40);
         Play play = new Play("Othello", "tragedy");
-        PerformanceCalculator performanceCalculator = new PerformanceCalculator(performance, play);
+        PerformanceCalculator performanceCalculator = PerformanceCalculatorFactory.createCalculator(performance, play);
 
         Integer result = performanceCalculator.amount();
 
