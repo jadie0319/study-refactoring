@@ -10,16 +10,15 @@ public class Statement {
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
 
         for (Performance perf : invoice.performances()) {
-            Play play = plays.getPlay(perf.playID());
             int thisAmount = 0;
 
-            thisAmount = amountFor(perf, play);
+            thisAmount = amountFor(perf, playFor(plays, perf));
 
             volumeCredits += Math.max(perf.audience() - 30, 0);
-            if ("comedy".equals(play.type())) {
+            if ("comedy".equals(playFor(plays, perf).type())) {
                 volumeCredits += Math.floor(perf.audience() / 5);
             }
-            result.append(String.format("%s: $%.2f (%d석)\n", play.name(), toDouble(thisAmount), perf.audience()));
+            result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), toDouble(thisAmount), perf.audience()));
             totalAmount += thisAmount;
         }
         result.append("총액: $%.2f\n".formatted(toDouble(totalAmount)));
@@ -27,7 +26,11 @@ public class Statement {
         return result.toString();
     }
 
-    private static int amountFor(Performance aPerformance, Play play) throws Exception {
+    private Play playFor(Plays plays, Performance perf) {
+        return plays.getPlay(perf.playID());
+    }
+
+    private int amountFor(Performance aPerformance, Play play) throws Exception {
         int result = 0;
         switch (play.type()) {
             case "tragedy" -> {
