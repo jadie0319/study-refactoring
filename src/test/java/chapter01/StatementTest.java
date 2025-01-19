@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StatementTest {
 
-    private static Plays playMap;
+    private static Plays plays;
     private static List<Invoice> invoices;
 
     @BeforeAll
@@ -29,7 +29,7 @@ public class StatementTest {
         File invoicesFile = new File(Objects.requireNonNull(classLoader.getResource("invoices.json")).getFile());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        playMap = new Plays(objectMapper.readValue(playsFile, new TypeReference<Map<String, Play>>() {}));
+        plays = new Plays(objectMapper.readValue(playsFile, new TypeReference<Map<String, Play>>() {}));
         invoices = objectMapper.readValue(invoicesFile, new TypeReference<List<Invoice>>() {});
     }
 
@@ -37,7 +37,7 @@ public class StatementTest {
     void statement() throws Exception {
         Statement statement = new Statement();
 
-        String result = statement.statement(invoices.getFirst(), playMap);
+        String result = statement.statement(invoices.getFirst(), plays);
 
         assertThat(result).isEqualTo(
                 """
