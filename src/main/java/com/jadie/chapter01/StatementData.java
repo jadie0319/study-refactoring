@@ -20,7 +20,7 @@ public record StatementData(
         return plays.getPlay(perf.playID());
     }
 
-    private int amountFor(Performance aPerformance, Plays plays) throws Exception {
+    public int amountFor(Performance aPerformance) throws Exception {
         int result = 0;
         switch (playFor(plays, aPerformance).type()) {
             case "tragedy" -> {
@@ -44,7 +44,7 @@ public record StatementData(
     public int totalAmount() throws Exception {
         int result = 0;
         for (Performance perf : performances) {
-            result += amountFor(perf, plays);
+            result += amountFor(perf);
         }
         return result;
     }
@@ -68,5 +68,9 @@ public record StatementData(
             result += Math.floor(perf.audience() / 5);
         }
         return result;
+    }
+
+    public String playName(Performance perf) {
+        return playFor(plays, perf).name();
     }
 }
