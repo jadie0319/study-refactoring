@@ -8,10 +8,14 @@ public class Statement {
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
 
         for (Performance perf : invoice.performances()) {
-            volumeCredits += volumeCreditsFor(plays, perf);
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
             totalAmount += amountFor(perf, plays);
         }
+
+        for (Performance perf : invoice.performances()) {
+            volumeCredits += volumeCreditsFor(plays, perf);
+        }
+
         result.append("총액: $%.2f\n".formatted(usd(totalAmount)));
         result.append("적립 포인트: %d점".formatted(volumeCredits));
         return result.toString();
