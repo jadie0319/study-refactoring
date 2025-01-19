@@ -21,8 +21,7 @@ public record StatementData(
     }
 
     public int amountFor(Performance performance) {
-        return new PerformanceCalculator(performance, playFor(plays, performance))
-                .amount();
+        return createPerformanceCalculator(performance, playFor(plays, performance)).amount();
     }
 
     public int totalAmount() {
@@ -38,10 +37,21 @@ public record StatementData(
     }
 
     private int volumeCreditsFor(Performance perf) {
-        return new PerformanceCalculator(perf, playFor(plays, perf)).volumeCredits();
+        return createPerformanceCalculator(perf, playFor(plays, perf)).volumeCredits();
     }
 
     public String playName(Performance perf) {
         return playFor(plays, perf).name();
     }
+
+    private PerformanceCalculator createPerformanceCalculator(Performance performance, Play play) {
+        switch (play.type()) {
+            case "tragedy": return new TragedyCalculator(performance, play);
+            case "comedy": return new ComedyCalculator(performance, play);
+            default:
+                default -> throw new RuntimeException("알 수 없는 장르: %s".formatted(play.type()));
+        }
+        return new PerformanceCalculator(performance, play);
+    }
+
 }

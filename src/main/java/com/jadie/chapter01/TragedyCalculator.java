@@ -1,11 +1,11 @@
 package com.jadie.chapter01;
 
-public class PerformanceCalculator {
+public class TragedyCalculator {
 
     private final Performance performance;
     private final Play play;
 
-    public PerformanceCalculator(Performance aPerformance, Play aPlay) {
+    public TragedyCalculator(Performance aPerformance, Play aPlay) {
         this.performance = aPerformance;
         this.play = aPlay;
     }
@@ -14,7 +14,10 @@ public class PerformanceCalculator {
         int result = 0;
         switch (play.type()) {
             case "tragedy" -> {
-                throw new UnsupportedOperationException("NotImplemented");
+                result = 40000;
+                if (performance.audience() > 30) {
+                    result += 1000 * (performance.audience() - 30);
+                }
             }
             case "comedy" -> {
                 result = 30000;
