@@ -27,21 +27,21 @@ public class Statement {
         return result.toString();
     }
 
-    private static int amountFor(Performance perf, Play play) throws Exception {
+    private static int amountFor(Performance aPerformance, Play play) throws Exception {
         int result = 0;
         switch (play.type()) {
             case "tragedy" -> {
                 result = 40000;
-                if (perf.audience() > 30) {
-                    result += 1000 * (perf.audience() - 30);
+                if (aPerformance.audience() > 30) {
+                    result += 1000 * (aPerformance.audience() - 30);
                 }
             }
             case "comedy" -> {
                 result = 30000;
-                if (perf.audience() > 20) {
-                    result += 10000 + 500 * (perf.audience() - 20);
+                if (aPerformance.audience() > 20) {
+                    result += 10000 + 500 * (aPerformance.audience() - 20);
                 }
-                result += 300 * perf.audience();
+                result += 300 * aPerformance.audience();
             }
             default -> throw new Exception("알 수 없는 장르: %s".formatted(play.type()));
         }
