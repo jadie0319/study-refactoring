@@ -12,7 +12,7 @@ public class Statement {
         for (Performance perf : invoice.performances()) {
             int thisAmount = 0;
 
-            thisAmount = amountFor(perf, playFor(plays, perf));
+            thisAmount = amountFor(perf, plays);
 
             volumeCredits += Math.max(perf.audience() - 30, 0);
             if ("comedy".equals(playFor(plays, perf).type())) {
@@ -30,9 +30,9 @@ public class Statement {
         return plays.getPlay(perf.playID());
     }
 
-    private int amountFor(Performance aPerformance, Play play) throws Exception {
+    private int amountFor(Performance aPerformance, Plays plays) throws Exception {
         int result = 0;
-        switch (play.type()) {
+        switch (playFor(plays, aPerformance).type()) {
             case "tragedy" -> {
                 result = 40000;
                 if (aPerformance.audience() > 30) {
@@ -46,7 +46,7 @@ public class Statement {
                 }
                 result += 300 * aPerformance.audience();
             }
-            default -> throw new Exception("알 수 없는 장르: %s".formatted(play.type()));
+            default -> throw new Exception("알 수 없는 장르: %s".formatted(playFor(plays, aPerformance).type()));
         }
         return result;
     }
