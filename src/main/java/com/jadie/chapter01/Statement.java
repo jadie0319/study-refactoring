@@ -4,7 +4,6 @@ public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
         int totalAmount = 0;
-        int volumeCredits = 0;
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
 
         for (Performance perf : invoice.performances()) {
@@ -12,6 +11,7 @@ public class Statement {
             totalAmount += amountFor(perf, plays);
         }
 
+        int volumeCredits = 0;
         for (Performance perf : invoice.performances()) {
             volumeCredits += volumeCreditsFor(plays, perf);
         }
