@@ -1,36 +1,38 @@
 package com.jadie.chapter01;
 
+import java.util.List;
+
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
-        StatementData data = StatementData.of(invoice.customer());
+        StatementData data = StatementData.of(invoice.customer(), invoice.performances());
 
-        return renderPlainText(data, invoice, plays);
+        return renderPlainText(data, plays);
     }
 
-    private String renderPlainText(StatementData data, Invoice invoice, Plays plays) throws Exception {
+    private String renderPlainText(StatementData data, Plays plays) throws Exception {
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(data.customer()));
 
-        for (Performance perf : invoice.performances()) {
+        for (Performance perf : data.performances()) {
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
         }
 
-        result.append("총액: $%.2f\n".formatted(usd(totalAmount(invoice, plays))));
-        result.append("적립 포인트: %d점".formatted(totalVolumeCredits(invoice, plays)));
+        result.append("총액: $%.2f\n".formatted(usd(totalAmount(data.performances(), plays))));
+        result.append("적립 포인트: %d점".formatted(totalVolumeCredits(data.performances(), plays)));
         return result.toString();
     }
 
-    private int totalAmount(Invoice invoice, Plays plays) throws Exception {
+    private int totalAmount(List<Performance> performances, Plays plays) throws Exception {
         int result = 0;
-        for (Performance perf : invoice.performances()) {
+        for (Performance perf : performances) {
             result += amountFor(perf, plays);
         }
         return result;
     }
 
-    private int totalVolumeCredits(Invoice invoice, Plays plays) {
+    private int totalVolumeCredits(List<Performance> performances, Plays plays) {
         int result = 0;
-        for (Performance perf : invoice.performances()) {
+        for (Performance perf : performances) {
             result += volumeCreditsFor(plays, perf);
         }
         return result;
