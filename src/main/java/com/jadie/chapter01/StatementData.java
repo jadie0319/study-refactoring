@@ -52,4 +52,21 @@ public record StatementData(
     private double usd(int amount) {
         return amount / 100.0;
     }
+
+    public int totalVolumeCredits() {
+        int result = 0;
+        for (Performance perf : performances) {
+            result += volumeCreditsFor(plays, perf);
+        }
+        return result;
+    }
+
+    private int volumeCreditsFor(Plays plays, Performance perf) {
+        int result = 0;
+        result += Math.max(perf.audience() - 30, 0);
+        if ("comedy".equals(playFor(plays, perf).type())) {
+            result += Math.floor(perf.audience() / 5);
+        }
+        return result;
+    }
 }

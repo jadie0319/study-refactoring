@@ -18,33 +18,8 @@ public class Statement {
         }
 
         result.append("총액: $%.2f\n".formatted(usd(data.totalAmount())));
-        result.append("적립 포인트: %d점".formatted(totalVolumeCredits(data.performances(), plays)));
+        result.append("적립 포인트: %d점".formatted(data.totalVolumeCredits()));
         return result.toString();
-    }
-
-    private int totalAmount(List<Performance> performances, Plays plays) throws Exception {
-        int result = 0;
-        for (Performance perf : performances) {
-            result += amountFor(perf, plays);
-        }
-        return result;
-    }
-
-    private int totalVolumeCredits(List<Performance> performances, Plays plays) {
-        int result = 0;
-        for (Performance perf : performances) {
-            result += volumeCreditsFor(plays, perf);
-        }
-        return result;
-    }
-
-    private int volumeCreditsFor(Plays plays, Performance perf) {
-        int result = 0;
-        result += Math.max(perf.audience() - 30, 0);
-        if ("comedy".equals(playFor(plays, perf).type())) {
-            result += Math.floor(perf.audience() / 5);
-        }
-        return result;
     }
 
     private Play playFor(Plays plays, Performance perf) {
