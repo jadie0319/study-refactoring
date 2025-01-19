@@ -49,10 +49,6 @@ public record StatementData(
         return result;
     }
 
-    private double usd(int amount) {
-        return amount / 100.0;
-    }
-
     public int totalVolumeCredits() {
         int result = 0;
         for (Performance perf : performances) {

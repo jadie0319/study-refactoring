@@ -1,7 +1,5 @@
 package com.jadie.chapter01;
 
-import java.util.List;
-
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
