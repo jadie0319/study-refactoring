@@ -1,7 +1,5 @@
 package com.jadie.chapter01;
 
-import java.text.DecimalFormat;
-
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
@@ -11,10 +9,10 @@ public class Statement {
 
         for (Performance perf : invoice.performances()) {
             volumeCredits += volumeCreditsFor(plays, perf);
-            result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), toDouble(amountFor(perf, plays)), perf.audience()));
+            result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
             totalAmount += amountFor(perf, plays);
         }
-        result.append("총액: $%.2f\n".formatted(toDouble(totalAmount)));
+        result.append("총액: $%.2f\n".formatted(usd(totalAmount)));
         result.append("적립 포인트: %d점".formatted(volumeCredits));
         return result.toString();
     }
@@ -53,7 +51,7 @@ public class Statement {
         return result;
     }
 
-    private double toDouble(int amount) {
+    private double usd(int amount) {
         return amount / 100.0;
     }
 
