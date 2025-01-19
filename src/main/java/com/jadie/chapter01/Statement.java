@@ -3,12 +3,13 @@ package com.jadie.chapter01;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
-        StatementData data = new StatementData();
+        StatementData data = StatementData.of(invoice.customer());
+
         return renderPlainText(data, invoice, plays);
     }
 
     private String renderPlainText(StatementData data, Invoice invoice, Plays plays) throws Exception {
-        StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
+        StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(data.customer()));
 
         for (Performance perf : invoice.performances()) {
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
