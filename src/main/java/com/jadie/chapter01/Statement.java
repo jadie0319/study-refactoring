@@ -3,13 +3,13 @@ package com.jadie.chapter01;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
-        int totalAmount = 0;
         StringBuilder result = new StringBuilder("청구 내역 (고객명: %s)\n".formatted(invoice.customer()));
 
         for (Performance perf : invoice.performances()) {
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
         }
 
+        int totalAmount = 0;
         for (Performance perf : invoice.performances()) {
             totalAmount += amountFor(perf, plays);
         }
