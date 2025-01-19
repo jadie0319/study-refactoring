@@ -45,13 +45,11 @@ public record StatementData(
     }
 
     private PerformanceCalculator createPerformanceCalculator(Performance performance, Play play) {
-        switch (play.type()) {
-            case "tragedy": return new TragedyCalculator(performance, play);
-            case "comedy": return new ComedyCalculator(performance, play);
-            default:
-                default -> throw new RuntimeException("알 수 없는 장르: %s".formatted(play.type()));
-        }
-        return new PerformanceCalculator(performance, play);
+        return switch (play.type()) {
+            case "tragedy" -> new TragedyCalculator(performance, play);
+            case "comedy" -> new ComedyCalculator(performance, play);
+            default -> throw new RuntimeException("알 수 없는 장르: %s".formatted(play.type()));
+        };
     }
 
 }
