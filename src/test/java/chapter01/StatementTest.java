@@ -1,8 +1,10 @@
 package chapter01;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jadie.chapter01.Invoice;
+import com.jadie.chapter01.Play;
+import com.jadie.chapter01.Plays;
 import com.jadie.chapter01.Statement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StatementTest {
 
-    private static Map<String, Play> playMap;
-    private static List<Invoices> invoices;
+    private static Plays playMap;
+    private static List<Invoice> invoices;
 
     @BeforeAll
     static void setUp() throws IOException {
@@ -27,15 +29,15 @@ public class StatementTest {
         File invoicesFile = new File(Objects.requireNonNull(classLoader.getResource("invoices.json")).getFile());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        playMap = objectMapper.readValue(playsFile, new TypeReference<Map<String, Play>>() {});
-        invoices = objectMapper.readValue(invoicesFile, new TypeReference<List<Invoices>>() {});
+        playMap = new Plays(objectMapper.readValue(playsFile, new TypeReference<Map<String, Play>>() {}));
+        invoices = objectMapper.readValue(invoicesFile, new TypeReference<List<Invoice>>() {});
     }
 
     @Test
-    void statement() {
+    void statement() throws Exception {
         Statement statement = new Statement();
 
-        String result = statement.statement();
+        String result = statement.statement(invoices.getFirst(), playMap);
 
         assertThat(result).isEqualTo(
                 """
@@ -43,9 +45,8 @@ public class StatementTest {
                         Hamlet: $650.00 (55석)
                         As You Like It: $580.00 (35석)
                         Othello: $500.00 (40석)
-                        총액: $1,730.00
-                        적립 포인트: 47점
-                        """
+                        총액: $1730.00
+                        적립 포인트: 47점"""
         );
     }
 }
