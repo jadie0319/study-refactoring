@@ -20,25 +20,9 @@ public record StatementData(
         return plays.getPlay(perf.playID());
     }
 
-    public int amountFor(Performance aPerformance) {
-        int result = 0;
-        switch (playFor(plays, aPerformance).type()) {
-            case "tragedy" -> {
-                result = 40000;
-                if (aPerformance.audience() > 30) {
-                    result += 1000 * (aPerformance.audience() - 30);
-                }
-            }
-            case "comedy" -> {
-                result = 30000;
-                if (aPerformance.audience() > 20) {
-                    result += 10000 + 500 * (aPerformance.audience() - 20);
-                }
-                result += 300 * aPerformance.audience();
-            }
-            default -> throw new RuntimeException("알 수 없는 장르: %s".formatted(playFor(plays, aPerformance).type()));
-        }
-        return result;
+    public int amountFor(Performance performance) {
+        return new PerformanceCalculator(performance, playFor(plays, performance))
+                .amount();
     }
 
     public int totalAmount() {
