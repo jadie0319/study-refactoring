@@ -7,6 +7,7 @@ import com.jadie.chapter01.Play;
 import com.jadie.chapter01.Plays;
 import com.jadie.chapter01.Statement;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public class StatementTest {
         invoices = objectMapper.readValue(invoicesFile, new TypeReference<List<Invoice>>() {});
     }
 
+    @DisplayName("statement 문자열 출력 테스트")
     @Test
     void statement() throws Exception {
         Statement statement = new Statement();
