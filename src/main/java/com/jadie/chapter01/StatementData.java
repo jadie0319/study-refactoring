@@ -48,14 +48,12 @@ public record StatementData(
     }
 
     public int totalVolumeCredits() {
-        int result = 0;
-        for (Performance perf : performances) {
-            result += volumeCreditsFor(plays, perf);
-        }
-        return result;
+        return performances.stream()
+                .mapToInt(this::volumeCreditsFor)
+                .sum();
     }
 
-    private int volumeCreditsFor(Plays plays, Performance perf) {
+    private int volumeCreditsFor(Performance perf) {
         int result = 0;
         result += Math.max(perf.audience() - 30, 0);
         if ("comedy".equals(playFor(plays, perf).type())) {
