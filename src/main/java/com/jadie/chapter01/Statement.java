@@ -5,7 +5,7 @@ import java.util.List;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) throws Exception {
-        StatementData data = StatementData.of(invoice.customer(), invoice.performances());
+        StatementData data = StatementData.of(invoice.customer(), invoice.performances(), plays);
 
         return renderPlainText(data, plays);
     }
@@ -17,7 +17,7 @@ public class Statement {
             result.append(String.format("%s: $%.2f (%d석)\n", playFor(plays, perf).name(), usd(amountFor(perf, plays)), perf.audience()));
         }
 
-        result.append("총액: $%.2f\n".formatted(usd(totalAmount(data.performances(), plays))));
+        result.append("총액: $%.2f\n".formatted(usd(data.totalAmount())));
         result.append("적립 포인트: %d점".formatted(totalVolumeCredits(data.performances(), plays)));
         return result.toString();
     }
