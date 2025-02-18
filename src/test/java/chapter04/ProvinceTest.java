@@ -27,4 +27,10 @@ public class ProvinceTest {
     void calculateShortfallTest() {
         assertThat(province.shortfall()).isEqualTo(30);
     }
+
+    @DisplayName("수익(demandCost) 계산")
+    @Test
+    void demandCostTest() {
+        assertThat(province.demandCost()).isEqualTo(12);
+    }
 }
