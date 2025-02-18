@@ -32,6 +32,6 @@ public class ProvinceTest {
         );
         Province province = new Province("Asia", 30, 20, producers);
 
-        assertThat(province.shortfall()).isEqualTo(123);
+        assertThat(province.shortfall()).isEqualTo(30);
     }
 }
