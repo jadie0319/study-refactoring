@@ -1,15 +1,17 @@
 package chapter04;
 
+import java.util.Optional;
+
 public class Producer {
     private Province province;
-    private Integer cost;
+    private int cost;
     private String name;
-    private Integer production;
+    private int production;
 
-    public Producer(Province province, String name, Integer cost, Integer production) {
+    public Producer(Province province, String name, int cost, int production) {
         this.province = province;
         this.cost = cost;
         this.name = name;
-        this.production = production;
+        this.production = Optional.of(production).orElse(0);
     }
 }
