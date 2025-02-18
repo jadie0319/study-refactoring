@@ -28,4 +28,7 @@ public class Province {
         return new Producer(province, name, cost, production);
     }
 
+    public int shortfall() {
+        return this.demand - this.totalProduction;
+    }
 }
