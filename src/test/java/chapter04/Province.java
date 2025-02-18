@@ -9,15 +9,23 @@ public class Province {
     private int demand;
     private int price;
 
-    public Province(String name, int demand, int price, int cost, int production) {
+    public Province(String name, int demand, int price, List<Producer> producers) {
         this.name = name;
-        this.totalProduction = 0;
         this.demand = demand;
         this.price = price;
-        this.producers = makeProduct(name, cost, production);
+        this.totalProduction = 0;
+        this.producers = producers.stream()
+                .map(producer -> makeProducer(
+                                this,
+                                producer.getName(),
+                                producer.getCost(),
+                                producer.getProduction()
+                        )
+                ).toList();
     }
 
-    private List<Producer> makeProduct(String name, int cost, Integer production) {
-        return List.of(new Producer(this, name, cost, production));
+    private Producer makeProducer(Province province, String name, int cost, int production) {
+        return new Producer(province, name, cost, production);
     }
+
 }
