@@ -15,6 +15,12 @@ public class Producer {
         this.production = Optional.of(production).orElse(0);
     }
 
+    public Producer(String name, int cost, int production) {
+        this.cost = cost;
+        this.name = name;
+        this.production = Optional.of(production).orElse(0);
+    }
+
     public int getCost() {
         return cost;
     }
