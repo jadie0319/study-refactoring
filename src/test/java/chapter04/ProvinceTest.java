@@ -22,4 +22,16 @@ public class ProvinceTest {
         assertThat(province).isNotNull();
     }
 
+    @DisplayName("생산 부족분 계산")
+    @Test
+    void calculateShortfallTest() {
+        List<Producer> producers = List.of(
+                new Producer("Byzantium", 10, 9),
+                new Producer("Byzantium", 12, 12),
+                new Producer("Byzantium", 10, 6)
+        );
+        Province province = new Province("Asia", 30, 20, producers);
+
+        assertThat(province.shortfall()).isEqualTo(123);
+    }
 }
