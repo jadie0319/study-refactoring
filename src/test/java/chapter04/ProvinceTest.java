@@ -20,12 +20,13 @@ public class ProvinceTest {
     @Test
     void make() {
         assertThat(province).isNotNull();
+        assertThat(province.getTotalProduction()).isEqualTo(27);
     }
 
     @DisplayName("생산 부족분 계산")
     @Test
     void calculateShortfallTest() {
-        assertThat(province.shortfall()).isEqualTo(30);
+        assertThat(province.shortfall()).isEqualTo(3);
     }
 
     @DisplayName("수익(demandCost) 계산")

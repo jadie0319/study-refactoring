@@ -1,6 +1,7 @@
 package chapter04;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Province {
     private String name;
@@ -25,6 +26,7 @@ public class Province {
     }
 
     private Producer makeProducer(Province province, String name, int cost, int production) {
+        province.totalProduction += production;
         return new Producer(province, name, cost, production);
     }
 
@@ -33,6 +35,21 @@ public class Province {
     }
 
     public int demandCost() {
-        return 12;
+        AtomicInteger remainingDemand = new AtomicInteger(this.demand);
+        AtomicInteger result = new AtomicInteger();
+        this.producers
+                .stream()
+                .sorted( (a,b) -> a.getCost() - b.getCost())
+                .forEach(producer -> {
+                    int contribution = Math.min(remainingDemand.get(), producer.getProduction());
+                    remainingDemand.addAndGet(-contribution);
+                    result.addAndGet(contribution * producer.getCost());
+                });
+
+        return result.get();
+    }
+
+    public int getTotalProduction() {
+        return totalProduction;
     }
 }
