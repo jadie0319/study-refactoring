@@ -31,4 +31,8 @@ public class Province {
     public int shortfall() {
         return this.demand - this.totalProduction;
     }
+
+    public int demandCost() {
+        return 12;
+    }
 }
