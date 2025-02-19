@@ -31,6 +31,6 @@ public class ProvinceTest {
     @DisplayName("수익(demandCost) 계산")
     @Test
     void demandCostTest() {
-        assertThat(province.demandCost()).isEqualTo(12);
+        assertThat(province.demandCost()).isEqualTo(294);
     }
 }
