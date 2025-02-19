@@ -56,4 +56,8 @@ public class Province {
     public int satisfiedDemand() {
         return Math.min(this.demand, this.totalProduction);
     }
+
+    public int demandValue() {
+        return satisfiedDemand() * this.price;
+    }
 }
