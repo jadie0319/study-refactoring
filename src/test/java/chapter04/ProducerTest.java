@@ -30,7 +30,7 @@ public class ProducerTest {
         assertThat(result).isNotNull();
     }
 
-    @DisplayName("setProduction 파라미터에 숫자외 문자가 입력되면 예외가 발생한다.")
+    @DisplayName("setProduction 인자 값에 숫자외 문자가 입력되면 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(strings = {"a", "b", "ab", "1a"})
     void setProduction_givenNotNumber(String input) {
@@ -48,4 +48,13 @@ public class ProducerTest {
         assertThat(province.getTotalProduction()).isEqualTo(100);
     }
 
+    @DisplayName("setProduction 실행시 province 가 null 이면 예외가 발생한다.")
+    @Test
+    void setProduction_givenNullProvince() {
+
+        Producer producer = new Producer(null, "Byzantium", 10, 9);
+
+        assertThatThrownBy( () -> producer.setProduction("100"))
+                .isInstanceOf(NullPointerException.class);
+    }
 }
