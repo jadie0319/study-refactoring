@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+
+import static chapter04.ProducerFixture.ASIA_LIST;
 import static chapter04.ProvinceFixture.ASIA_PROVINCE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +22,14 @@ public class ProvinceTest {
     @DisplayName("Province 생성 테스트")
     @Test
     void make() {
-        assertThat(province).isNotNull();
+        Province result = new Province("Asia", 30, 20, Collections.emptyList());
+
+        assertThat(result).isNotNull();
+    }
+
+    @DisplayName("totalProduction 테스트")
+    @Test
+    void totalProduction() {
         assertThat(province.getTotalProduction()).isEqualTo(27);
     }
 
