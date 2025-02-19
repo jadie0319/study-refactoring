@@ -16,6 +16,7 @@ public class Producer {
     }
 
     public Producer(String name, int cost, int production) {
+        this.province = null;
         this.cost = cost;
         this.name = name;
         this.production = Optional.of(production).orElse(0);
@@ -35,5 +36,6 @@ public class Producer {
 
     public void setProduction(String amount) {
         int newProduction = Integer.parseInt(amount);
+        province.setTotalProduction(newProduction - this.production);
     }
 }
