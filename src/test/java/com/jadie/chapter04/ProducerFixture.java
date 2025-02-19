@@ -1,4 +1,4 @@
-package chapter04;
+package com.jadie.chapter04;
 
 import java.util.List;
 

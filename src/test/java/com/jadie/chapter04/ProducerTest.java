@@ -1,4 +1,4 @@
-package chapter04;
+package com.jadie.chapter04;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

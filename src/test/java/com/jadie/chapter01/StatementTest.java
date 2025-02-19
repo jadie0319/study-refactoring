@@ -1,11 +1,7 @@
-package chapter01;
+package com.jadie.chapter01;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jadie.chapter01.Invoice;
-import com.jadie.chapter01.Play;
-import com.jadie.chapter01.Plays;
-import com.jadie.chapter01.Statement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package chapter04;
+package com.jadie.chapter04;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static chapter04.ProducerFixture.ASIA_PRODUCER_LIST;
-import static chapter04.ProducerFixture.BYZANTIUM_PRODUCER;
+import static com.jadie.chapter04.ProducerFixture.ASIA_PRODUCER_LIST;
+import static com.jadie.chapter04.ProducerFixture.BYZANTIUM_PRODUCER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProvinceTest {
