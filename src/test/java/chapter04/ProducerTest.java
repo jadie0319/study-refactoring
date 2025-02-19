@@ -51,7 +51,7 @@ public class ProducerTest {
     @DisplayName("setProduction 실행시 province 가 null 이면 예외가 발생한다.")
     @Test
     void setProduction_givenNullProvince() {
-
+        // province 가 null 인 producer 를 못만들게 하면 된다?
         Producer producer = new Producer(null, "Byzantium", 10, 9);
 
         assertThatThrownBy( () -> producer.setProduction("100"))
