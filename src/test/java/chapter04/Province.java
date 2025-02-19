@@ -60,4 +60,8 @@ public class Province {
     public int demandValue() {
         return satisfiedDemand() * this.price;
     }
+
+    public int profit() {
+        return demandValue() - demandCost();
+    }
 }
