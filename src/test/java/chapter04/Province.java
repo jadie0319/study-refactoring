@@ -64,4 +64,8 @@ public class Province {
     public int profit() {
         return demandValue() - demandCost();
     }
+
+    public void setTotalProduction(int newProduction) {
+        this.totalProduction += newProduction;
+    }
 }

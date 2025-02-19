@@ -32,4 +32,8 @@ public class Producer {
     public int getProduction() {
         return production;
     }
+
+    public void setProduction(String amount) {
+        int newProduction = Integer.parseInt(amount);
+    }
 }
