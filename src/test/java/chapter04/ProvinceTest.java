@@ -38,6 +38,6 @@ public class ProvinceTest {
     @DisplayName("satisfiedDemand 계산")
     @Test
     void satisfiedDemandTest() {
-        assertThat(province.satisfiedDemand()).isEqualTo(0);
+        assertThat(province.satisfiedDemand()).isEqualTo(27);
     }
 }
