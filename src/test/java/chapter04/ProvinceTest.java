@@ -34,4 +34,10 @@ public class ProvinceTest {
     void demandCostTest() {
         assertThat(province.demandCost()).isEqualTo(294);
     }
+
+    @DisplayName("satisfiedDemand 계산")
+    @Test
+    void satisfiedDemandTest() {
+        assertThat(province.satisfiedDemand()).isEqualTo(0);
+    }
 }
