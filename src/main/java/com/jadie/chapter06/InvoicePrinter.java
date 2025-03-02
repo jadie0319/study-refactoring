@@ -3,10 +3,11 @@ package com.jadie.chapter06;
 public class InvoicePrinter {
 
     public void printOwing(Invoice invoice) {
-        int outstanding = 0;
+
 
         printBanner();
 
+        int outstanding = 0;
         for (Order order : invoice.getOrders()) {
             outstanding += order.getAmount();
         }
