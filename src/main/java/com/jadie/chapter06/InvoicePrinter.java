@@ -3,17 +3,20 @@ package com.jadie.chapter06;
 public class InvoicePrinter {
 
     public void printOwing(Invoice invoice) {
-
-
         printBanner();
 
+        int outstanding = calculateOutstanding(invoice);
+
+        // 세부 사항 출력
+        printDetails(invoice, outstanding);
+    }
+
+    private int calculateOutstanding(Invoice invoice) {
         int outstanding = 0;
         for (Order order : invoice.getOrders()) {
             outstanding += order.getAmount();
         }
-
-        // 세부 사항 출력
-        printDetails(invoice, outstanding);
+        return outstanding;
     }
 
     private void printDetails(Invoice invoice, Integer outstanding) {
