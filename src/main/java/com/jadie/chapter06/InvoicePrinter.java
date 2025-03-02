@@ -7,6 +7,10 @@ public class InvoicePrinter {
         var outstanding = calculateOutstanding();
 
         // 세부 사항 출력
+        printDetails(invoice, outstanding);
+    }
+
+    private void printDetails(Invoice invoice, Integer outstanding) {
         System.out.println("고객명 : " + invoice.getCustomer());
         System.out.println("채무액 : " + outstanding);
     }
