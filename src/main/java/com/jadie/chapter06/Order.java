@@ -36,4 +36,8 @@ public class Order {
     public double shipping() {
         return Math.min(getQuantity() * getItemPrice() * 0.1, 100);
     }
+
+    public boolean isExpensive(Order anOrder) {
+        return anOrder.basePrice() > 1000;
+    }
 }
