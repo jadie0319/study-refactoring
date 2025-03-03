@@ -9,11 +9,6 @@ public class NumberRange {
         this.max = max;
     }
 
-    public Integer min() {
-        return min;
-    }
-
-    public Integer max() {
-        return max;
-    }
+    public Integer min() {return min;}
+    public Integer max() {return max;}
 }

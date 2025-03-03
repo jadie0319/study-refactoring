@@ -19,16 +19,17 @@ class StationTest {
         boolean result = readingsOutsideRange(
                 station,
                 operatingPlan.temperatureFloor(),
-                operatingPlan.temperatureCeiling()
+                operatingPlan.temperatureCeiling(),
+                new NumberRange(operatingPlan.temperatureFloor(), operatingPlan.temperatureCeiling())
         );
 
         assertThat(result).isFalse();
     }
 
-    public boolean readingsOutsideRange(Station station, Integer min, Integer max) {
+    public boolean readingsOutsideRange(Station station, Integer min, Integer max, NumberRange range) {
         List<Reading> readings = station.getReadings();
         return readings.stream()
-                .anyMatch(r -> r.temp() < min || r.temp() > max);
+                .anyMatch(r -> r.temp() < range.min() || r.temp() > range.max());
     }
 
     private static List<Reading> defaultReadings() {
