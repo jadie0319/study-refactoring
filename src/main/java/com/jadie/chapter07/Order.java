@@ -1,18 +1,20 @@
 package com.jadie.chapter07;
 
 public class Order {
-    private Priority priority;
-    public String priorityString() {
-        return priority.toString();
-    }
-    public void priority(String aString) {
-        this.priority = new Priority(aString);
-    }
-    public Priority priority() {
-        return priority;
+    private Integer quantity;
+    private Integer item;
+
+    public Order(Integer quantity, Integer item) {
+        this.quantity = quantity;
+        this.item = item;
     }
 
-    public boolean isLegalPriority() {
-        return priority.isLegalPriority();
+    public double calculate() {
+        int basePrice = this.quantity * this.item;
+        if (basePrice > 1000) {
+            return basePrice * 0.95;
+        } else {
+            return basePrice * 0.98;
+        }
     }
 }
