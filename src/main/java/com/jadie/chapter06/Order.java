@@ -9,6 +9,10 @@ public class Order {
         this.amount = amount;
     }
 
+    public Integer calculateTotal(Order order) {
+        return order.amount * order.quantity * order.itemPrice;
+    }
+
     public Integer getAmount() {
         return amount;
     }
