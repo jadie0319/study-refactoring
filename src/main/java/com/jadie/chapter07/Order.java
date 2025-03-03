@@ -1,15 +1,18 @@
 package com.jadie.chapter07;
 
-import java.util.List;
-
 public class Order {
-    private String priority;
-
-    public String getPriority() {
+    private Priority priority;
+    public String priorityString() {
+        return priority.toString();
+    }
+    public void priority(String aString) {
+        this.priority = new Priority(aString);
+    }
+    public Priority priority() {
         return priority;
     }
 
-    public void setPriority(String aString) {
-        this.priority = aString;
+    public boolean isLegalPriority() {
+        return priority.isLegalPriority();
     }
 }

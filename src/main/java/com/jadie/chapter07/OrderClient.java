@@ -6,7 +6,7 @@ public class OrderClient {
 
     public long highPriorityCount(List<Order> orders) {
         long highPriorityCount = orders.stream()
-                .filter(o -> "high".equals(o.getPriority()) || "rush".equals(o.getPriority()))
+                .filter(Order::isLegalPriority)
                 .count();
         return highPriorityCount;
     }
