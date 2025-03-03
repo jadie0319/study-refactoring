@@ -7,19 +7,17 @@ public class Customer {
     private String state;
 
     public boolean isNewEngland(Customer customer) {
-        String state = customer.state;
-        return Stream.of("MA","CT","ME","VT","NH","RI")
-                .anyMatch(k -> k.equals(state));
+        return isNewEngland(customer.state);
     }
 
-    public boolean xxIsNewEngland(String state) {
+    public boolean isNewEngland(String state) {
         return Stream.of("MA","CT","ME","VT","NH","RI")
                 .anyMatch(k -> k.equals(state));
     }
 
     public void kkk(List<Customer> customer) {
         List<Customer> englandCustomers = customer.stream()
-                .filter(this::isNewEngland)
+                .filter((k) -> isNewEngland(k.state))
                 .toList();
     }
 }
