@@ -6,11 +6,18 @@ public class PriceCalculator {
         int basePrice = product.basePrice() * quantity;
         int discount = Math.max(quantity - product.discountThreshold(), 0)
                 * product.basePrice() * product.discountRate();
+        Integer price = applyShipping(basePrice,shippingMethod,quantity,discount);
+        return price;
+    }
+
+    public Integer applyShipping(
+            Integer basePrice, ShippingMethod shippingMethod,
+            Integer quantity, Integer discount) {
         Integer shippingPerCase = (basePrice > shippingMethod.discountThreshold())
                 ? shippingMethod.discountedFee()
                 : shippingMethod.feePerCase();
         Integer shippingCost = quantity * shippingPerCase;
-        Integer price = basePrice - discount + shippingCost;
-        return price;
+        return basePrice - discount + shippingCost;
     }
+
 }
